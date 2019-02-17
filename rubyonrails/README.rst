@@ -4,7 +4,7 @@ Notejam: Ruby on Rails
 
 Notejam application implemented using `Ruby on Rails <http://rubyonrails.org/>`_ framework.
 
-Ruby on Rails version: 4.2.5
+Ruby on Rails version: 4.2.11
 
 ==========================
 Installation and launching
