@@ -3,41 +3,23 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
-<% 
-  require 'parseconfig'
-
-  if ENV["DB_CFG_LOC"].nil?
-    dbcfg="/run/secrets/database.ini"
-  else
-    dbcfg=ENV["DB_CFG_LOG"]
-  end
-  if File.exists?(dbcfg)
-    c=ParseConfig.new(dbcfg)
-    devurl=c.param['development']['url']
-    testurl=c.param['test']['url']
-    produrl=c.param['production']['url']
-  else
-    devurl="sqlite3:notejam.db"
-    testurl="sqlite3:db/test.sqlite3"
-    produrl="sqlite3:db/production.sqlite3"
-  end
-%>
-
-default: &default
+development:
+  adapter: sqlite3
+  database: notejam.db
   pool: 5
   timeout: 5000
-
-development:
-  url: <%= devurl %>
-  <<: *default
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  url: <%= testurl %>
-  <<: *default
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
 
 production:
-  url: <%= produrl %>
-  <<: *default
+  adapter: sqlite3
+  database: db/production.sqlite3
+  pool: 5
+  timeout: 5000
